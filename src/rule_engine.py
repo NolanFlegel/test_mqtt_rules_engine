@@ -13,6 +13,12 @@ MQTT_INPUT_TOPIC = f"BRE/calculateWinterSupplementInput/{MQTT_TOPIC_ID}"
 MQTT_OUTPUT_TOPIC = f"BRE/calculateWinterSupplementOutput/{MQTT_TOPIC_ID}"
 CLIENT_ID = f"WinterSupplement-{uuid.uuid4()}"
 
+# Prefer to use StrEnum for python 3.11+
+FAMILY_COMPOSITION = {
+    "single": "single",
+    "couple": "couple"
+}
+
 def new_mqtt_client() -> mqtt_client:
     def on_connect(client, userdata, flags, reason_code, properties):
         print(f"Connected with result code {reason_code}")
@@ -72,9 +78,9 @@ def rule_engine(message):
     if is_eligible and number_of_children > 0:
         base_amount = 120.00
         children_amount = 20.00 * number_of_children
-    elif is_eligible and family_composition == "Couple":
+    elif is_eligible and family_composition == FAMILY_COMPOSITION["couple"]:
         base_amount = 120.00
-    elif is_eligible and family_composition == "Single":
+    elif is_eligible and family_composition == FAMILY_COMPOSITION["single"]:
         base_amount = 60.00
 
     supplement_amount = base_amount + children_amount
