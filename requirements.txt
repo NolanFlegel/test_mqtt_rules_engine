@@ -1,3 +1,4 @@
+coverage==7.6.8
 iniconfig==2.0.0
 packaging==24.2
 paho-mqtt==2.1.0
