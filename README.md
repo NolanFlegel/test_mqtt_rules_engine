@@ -38,6 +38,9 @@ Determine a client’s eligibility for the Winter Supplement
 
     ```python rule_engine.py```
 
+## Testing
+The repository utilizes github actions to run the test suite on commits or PRs into `main` branch. 
+These actions can be manually triggered on the Actions Tab in GitHub or tests can be run manually using the command `pytest tests` in the project root directory.
 
 ## Notes
 - Deactivate python virtual environment with `pyenv deactivate`
