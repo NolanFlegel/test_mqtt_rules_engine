@@ -1,5 +1,8 @@
 import pytest
-
+import sys
+sys.path.append(".")
+from src.rule_engine import rule_engine
+import json
 """
 The input data must have the following format (JSON schema):
 {
@@ -25,7 +28,17 @@ composition
 
 # Test - Invalid
 def test_eligibility_invalid():
-    assert False 
+    test_message = {
+        "id": "test-1234",
+        "numberOfChildren": 0,
+        "familyComposition": "single",
+        "familyUnitInPayForDecember": False
+        }
+    result = rule_engine(json.dumps(test_message))
+    assert result["isEligible"] == False
+    assert result["baseAmount"] == 0.0
+    assert result["childrenAmount"] == 0.0
+    assert result["supplementAmount"] == 0.0
 
 # Test - Valid
 def test_eligibility_valid():
